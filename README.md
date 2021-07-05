@@ -388,7 +388,7 @@ Since the requirements are met, next step is to generate the LEF file. To do thi
 **Naming the Pin :**
 To do this, we first select the area of the pin (suppose 'A') and click on *Edit* and *Text*. We now get the text dialogue box. We define the name, size of the text, order of the pin and the metal type. For Pins, we use *locali* as metal type and for power, we use *metal 3*.
 #### Text Option in the Edit dropdown box (The reason to specify this was, I used delete and other edit commands from here itself previously to experiment)
-![Text Option in the Edit dropdown box](https://github.com/lankasaicharan/skywater-openlane-physical-design/blob/main/Day-4/text%20option.png)
+![Text Option in the Edit dropdown box](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/text%20option.png)
 
 #### Text Dialogue box for pin "A"
 ![Text Dialogue box for pin "A"](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/conveting%20pins%20to%20ports.png)
@@ -439,7 +439,7 @@ After this, we need to merge our vsd_inv custom cell lef file and perform the sy
 If we could observe in the main lef file, we could see the custom cell lef details in it.
 ![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/after%20merging%20inv%20lef%20into%20merged%20lef.png)
 
-![After opt synthesis](https://github.comjenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/after%20optm%20synthesis.png)
+![After opt synthesis](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/after%20optm%20synthesis.png)
 Observe the reduced slack in the above picture after playing with the env variables at the synthesis stage.
 After reducing the slack, we run floorplanning and placement in openLANE. We load the placement def file in the MAGIC tool.
 
@@ -466,16 +466,14 @@ Below are the ss of the process I followed to reduce these two parameters in the
 #### setting fanout variable to 4 (from 6)
 ![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/setting%20fanout%20var%20to%204.png)
 
-#### Changing fanout and running synthesis.
-![](https://github.com/lankasaicharan/skywater-openlane-physical-design/blob/main/Day-4/changing%20the%20fanout%20and%20running%20synthesis.png
+
 
 Now, I will use the modified verilog file during the synthesis process and load that file in the STA tool.
 ![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/loading%20back%20.v%20file%20in%20the%20STA%20tool%20after%20fanout%20.png)
 
 We now modified the fanouts. If you could observe the timing report, we have a buf chain in the design. This is because we enabled the BUFFERING env variable in the openLANE and performed the synthesis. Our next choice to improve the slack is to improve these buffers size. This will reduce the cap load and thus effects the slack. 
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/buffer%20chain%20effecting%20the%20slew.png)
-![**Decreased slack after the modification**](https://github.com/lankasaicharan/skywater-openlane-physical-design/blob/main/Day-4/decreased%20slack%20by%20upgradind%20size%20of%20buff%20cell.png)
+
 
 We repeat this until we get the improved slack value.
 ![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/upgrading%20buff%20size.png)
