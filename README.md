@@ -7,8 +7,7 @@ First, I will be briefing about the Openlane flow and the tools involved in it. 
 
 OpenLane Flow is an automated RTL2GDSII flow which involves various opensource tools like OpenSTA, Yosys, Netgen, Magic etc. Below is the image illustration the flow along with
 the tools involved. The main motto of this Openlane is to automate the RTL2toGDSII flow and producing clean GDSII files. "_OpenLANE is a tape-out-hardened flow that addresses two main use cases: hardening a macro and integrating
-a System-on-a-Chip (SoC)._" - the research paper introducing OpenLANE (click [here](https://woset-workshop.github.io/PDFs/2020/a21.pdf) to view)
-
+a System-on-a-Chip (SoC).
 ![OpenLane Flow - from official github repo](https://github.com/efabless/openlane/raw/master/docs/_static/openlane.flow.1.png "OpenLane Flow - from official github repo")
 
 ## Table of Contents
@@ -89,23 +88,29 @@ run_CVC
 ```
 
 
-#### Invoking OpenLane and performing initial preparations
+## Invoking OpenLane and performing initial preparations
 
-![Invoking OpenLane and performing initial preparations](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-1/invoking%20opelane_initial_settings.png "Invoking OpenLane and performing initial preparations")
+![day 1 lab commands](https://user-images.githubusercontent.com/61493308/124503228-b8efc200-dde2-11eb-8535-5f39967a29ad.JPG)
+![day 1 lab commands2](https://user-images.githubusercontent.com/61493308/124503653-9f9b4580-dde3-11eb-838d-2db430279cda.JPG)
+
 
 ### **1.Synthesis**
 
-![Running Synthesis](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-1/running_synthesis.png "Running Synthesis")
+![synth command](https://user-images.githubusercontent.com/61493308/124503946-2a7c4000-dde4-11eb-8d19-474c52604738.JPG)
+![ABC tech map](https://user-images.githubusercontent.com/61493308/124504264-bd1cdf00-dde4-11eb-8497-ac63a2c42294.JPG)
+
+
+
 
 #### Summary of cells in the design after optimization in the synthesis
 
-![Optimized netlist summary](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-1/cells_summary_after_synthesis_and_optimization.png "Optimized netlist summary")
+![day2 statistics](https://user-images.githubusercontent.com/61493308/124504431-12f18700-dde5-11eb-8b98-6b87467de455.JPG)
+
 
 #### Slack Report of min and max paths of the clock
+![slack min max paths](https://user-images.githubusercontent.com/61493308/124504494-39172700-dde5-11eb-947c-a2708ef5c2eb.JPG)
 
-![min_path](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-1/slack_report_of_min_path.png "Min Path Slack Report")
 
-![max_path](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-1/slack_report_of_min_path.png "Max Path Slack Report")
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -114,13 +119,17 @@ run_CVC
 A brief understanding on floorplan stage and the factors involved in it like core utilization, aspect ratio etc., was given. Later, I came across the method of loading the prev run file while preparing the openlane. While performing floorplan, I came across the precedency of various config files. Those files and the order of precedence is shown below.
 ### **2.Floorplanning**
 #### Default floorplan config file
-![default floorplan config file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/floorplan_defaults_config_tcl_file.png "Default file")
+
+![floorplan tcl](https://user-images.githubusercontent.com/61493308/124504845-e12cf000-dde5-11eb-9cc7-c3478a2cd43a.JPG)
+
+![floorplan tcl2](https://user-images.githubusercontent.com/61493308/124504855-e5590d80-dde5-11eb-8c76-9ccb9545cd79.JPG)
 
 #### config file
-![config file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/config_tcl_file.png "config file")
 
-#### Sky130a config file
-![Sky130a config file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/skywater_openlane_config_tcl_file.png "Sky130a config file")
+![config tcl](https://user-images.githubusercontent.com/61493308/124504675-94e1b000-dde5-11eb-8a67-a8e4e5a4a6e6.JPG)
+
+
+
 
 #### Precendency
 **Sky130a config file > config file > default floorplan config file**
@@ -129,38 +138,63 @@ A brief understanding on floorplan stage and the factors involved in it like cor
 In floorplan, we fix the core utilization ratio, aspect ratio and provide decap cells, welltap cells. Later, we fix the I/O pins position. The floorplan was done using *run_floorplan* command and employed the **Magic** tool to view the layout by importing the def file generated. 
 
 #### Floorplanning in OpenLANE
-![Floorplan](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/floorplan.png "Floorplan")
+![day2 floorplan cmnds](https://user-images.githubusercontent.com/61493308/124505162-85169b80-dde6-11eb-885e-f19f748a69d0.JPG)
+![floorplan1](https://user-images.githubusercontent.com/61493308/124505213-9c558900-dde6-11eb-8c58-410f79e31172.JPG)
+
 
 #### Magic tool invoking by providing lef, tech library and def file
-![Magic tool config](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/using_magic_toview_floorplan_def.png "Magic tool config")
+
+
+```
+magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def
+
+```
+![view floorplan command](https://user-images.githubusercontent.com/61493308/124506444-47ffd880-dde9-11eb-8940-2294037a8b8c.JPG)
+
+![Untitled Workspace](https://user-images.githubusercontent.com/61493308/124505979-513c7580-dde8-11eb-95a0-9b022ab85953.jpg)
+
 
 #### Layout after floorplan stage in Magic tool
-![Magic Tool Layout](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/floorplan_layout.png "")
+![floorplan view1](https://user-images.githubusercontent.com/61493308/124506530-754c8680-dde9-11eb-8b89-88096b7fff6e.JPG)
 
-#### Pins and decap cells
-![Pins and Decap cells](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/pins_and_decap_cells.png "")
+
 
 #### Welltap cells arranged in checker board fashion
-![Welltap cells](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/welltap_cells_checkerboard.png "Welltap cells arranged in checker board fashion")
+![pins and decap cells](https://user-images.githubusercontent.com/61493308/124506559-83020c00-dde9-11eb-8de1-e1bca3388e41.JPG)
+
 
 #### Location of Std cells in the floorplan
-![Std cells](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/stdcells_at_the_bottom_of_floorplan_layout.png "Location of Std cells in the floorplan")
+![standard cell layout](https://user-images.githubusercontent.com/61493308/124507677-e725cf80-ddeb-11eb-9e23-485942dce4ea.JPG)
 
-#### Std cells in the layout
-![Std cells in the layout](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/std_cell_in_layout.png "Std cells in the layout")
+
 
 ### **3.Placement**
 
 After performing floorplan, we place the standard cells (which were already present at the bottom left of the design) and observe the DRCs. We do this by giving the command *run_placement* in OpenLANE. Placement in OpenLANE occurs in two stages - Global placement and Detailed placement. In global placement, all cells are placed on the floorplan in a random manner and in detailed placement, the cells positions are legalized. Legalization in the sense, it makes sure that cells are not overlapping. In OpenLANE, placement happens by having a goal (for congestion driven) to reduce the HPWL (Half Parameter Wire Length), hence taking many iterations. We invoke the **Magic** tool to view the layout of the design after placement of std cells. 
 
-#### Placement in OpenLANE
-![Placement in OpenLANE](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/placement_in_openlane.png "Placement in OpenLANE")
+## Placement in OpenLANE
+
+```
+run_placement
+
+```
+
+![placement](https://user-images.githubusercontent.com/61493308/124507766-1e947c00-ddec-11eb-8702-9f5f5b2b20f9.JPG)
+
 
 #### Invoking Magic tool to view placement.def file
-![Invoking MAGIC tool to view placement.def file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/invoking_magictool_for_placement.png "Invoking Magic tool to view placement.def file")
+
+```
+magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
+
+```
+![view pacement command](https://user-images.githubusercontent.com/61493308/124507912-6fa47000-ddec-11eb-9be3-c20a09f452b2.JPG)
+
+
+
 
 #### Layout of the design after Placement stage in Magic tool
-![Layout of the design after Placement stage in Magic tool](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/placement_magictool.png "Layout of the design after Placement stage in Magic tool")
+
 
 We generally know that there are two types of placements 
 * Timing Driven
