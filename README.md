@@ -195,6 +195,8 @@ magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../.
 
 #### Layout of the design after Placement stage in Magic tool
 
+![placement layout](https://user-images.githubusercontent.com/61493308/124510008-949ae200-ddf0-11eb-9b55-3be57cb5cf2c.JPG)
+
 
 We generally know that there are two types of placements 
 * Timing Driven
@@ -202,8 +204,7 @@ We generally know that there are two types of placements
 
 We can set the same in OpenLANE as well. Below is the config file in which the environment variable named *PL_TIME_DRIVEN* is set as **0** which indicates FALSE. Hence, the placement performed above is **Congestion Driven Placement** by default.
 
-#### Timing Driven is set to FALSE
-![Timing Driven is set to FALSE](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-2/timing_driven_is_set_false.png "Timing Driven is set to FALSE")
+
 
 **The interesting thing to notice is that the PG routing is not done yet. Usually (in ASIC flow), we perform this during Floorplan stage itself. But in the OpenLANE flow, PG routing happens after the CTS and before Routing.**
 
@@ -262,7 +263,8 @@ Now, since our gate, source and drain regions are ready, we now build the contac
 We, first, etch the thin oxide using HF solution. We deposit titanium on wafer surface using sputtering process. Then, we heat the wafer in N2 atmosphere which results in the formation of TiS2 in-place of pure titanium. We also have TiN developed on the wafer which will be used for local communications.
 Now, we do photo-lithography (placing photo-resist material and removing the same from unwanted areas using masks). After this we will be left out with the TiN which will be used for interconnects.
 #### A view of CMOS Inverter 
-![A view of CMOS Inverter](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/cmos%20middle%20step.png "")
+![cmos middle step](https://user-images.githubusercontent.com/61493308/124510500-944f1680-ddf1-11eb-9091-0b73e97d869f.png)
+
 
 
 **Higher level metal formation**
@@ -272,36 +274,26 @@ To develop the higher metal connections, we follow the photo-lithography process
 After this, we deposit a series of materials and do photo-lithography and prepare 3 metal layers. After this, we drill holes to the terminals and get our connections to control our source, gate and drain  regions of the inverter created. If we carefully observe, we totally used 16 masks (the layouts) to build this device. Hence, this complete process is called as “16-mask CMOS process”
 
 #### Final view of CMOS Inverter 
-![Final view of CMOS Inverter](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/cmos%20last%20step.png "")
+
+![cmos last step](https://user-images.githubusercontent.com/61493308/124510521-9e711500-ddf1-11eb-9090-1e4e2ea69785.png)
 
 
 ### Understanding DRC in MAGIC tool
 To understand the MAGIC tool and its DRC engine, we use the inverter design mag file. For that, we clone the repo and run MAGIC tool using the **Skylane130A** tech file and **inverter** mag file.
 
 #### Cloning the repo  for the inverter  
-![Cloning the repo  for the inverter](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/cloning%20git%20repo.png "")
+![image](https://user-images.githubusercontent.com/61493308/124510849-59011780-ddf2-11eb-90b5-2b323dca6ad0.png)
+
 #### Layout of the inverter  
-![Layout of the inverter](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/inverter%20layout.png "")
+
+![magic inverter1](https://user-images.githubusercontent.com/61493308/124510906-733af580-ddf2-11eb-843a-2de2132eddb0.JPG)
+
 #### Layers menubar 
-![Layers menubar ](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/metals.png "")
-#### Connections with input port A  
-![Connections with input port A](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/connections%20with%20input%20A.png "")
-#### Verifying the PMOS source terminal is connected to VDD   
-![Verifying the PMOS source terminal is connected to VDD](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/source%20of%20pmos%20connected%20to%20VDD.png "")
-#### Verifying the NMOS source terminal is connected to VSS   
-![Verifying the NMOS source terminal is connected to VSS](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/source%20of%20nmos%20connected%20to%20VSS.png "")
-#### DRC dropdown menu
-![DRC dropdown menu](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/drc%20window.png "")
 
-To check the DRC engine, we manually create the DRC error. If we could observe the starting imported layout, we get DRC errors as **0**. Now, we delete the N-well and create the error. The interesting thing when compared with traditional verifications tools is the Dynamic DRC engine which means that DRC engine runs in background w.r.t changes in the layout. 
+![layout window](https://user-images.githubusercontent.com/61493308/124510946-8a79e300-ddf2-11eb-894e-a58933ee32ee.JPG)
 
-#### Creating DRC error   
-![Creating DRC error](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/creating%20drc%20violation.png "")
 
-To know the complete info about the DRC error, after selecting the drc error, shift to tkcon window of MAGIC tool and see the info as shown below.
 
-#### Error info in the tkcon window   
-![Error info in the tkcon window](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/drc%20error%20showing%20in%20tkcon%20window.png "")
 
 
 ### Library Characterization
@@ -310,7 +302,13 @@ Basically, by library characterization, we mean to identify 4 parameters. Rise t
 We consider a basic inverter layout to identify the parameters. After importing the **mag** file and the **skylane130A tech** file, we extract the spice netlist. 
 
 #### Extracting Spice netlist  
-![Extracting Spice netlist](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/extracting%20spice%20netlist%20from%20MAGIC.png "")
+
+```
+extract all
+ext2spice
+
+```
+
 
 #### Extracted Spice netlist 
 ![Extracting Spice netlist](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/spice%20netlist%20from%20MAGIC.png)
