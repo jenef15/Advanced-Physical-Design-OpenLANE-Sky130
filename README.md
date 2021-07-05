@@ -60,7 +60,7 @@ OpenLANE integrated several key open source tools over the execution stages:
 |Placement| RePLace (Global), Resizer and OpenPhySyn (Optimizations), and OpenDP (Detailed)|
 |CTS| TritonCTS |
 |Fill Insertion| OpenDP/filler_placement |
-|Routing| FastRoute and TritonRoute (Detailed) |
+|Routing| FastRoute (Global) and TritonRoute (Detailed) |
 |SPEF Extraction|  SPEF-Extractor |
 |GDSII| Magic and Klayout
 |DRC Checks| Magic and Klayout |
