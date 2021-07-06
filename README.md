@@ -418,7 +418,18 @@ The commands we use to perform these are -
  *port use [signal/power/ground]*
  
  After defining the pins, we extract the LEF file from the layout by using command *lef write*. Below is the lef file generated for the inverter layout.
- #### LEF file for inverter
+ ## LEF file for inverter
+ ```
+ write lef
+ ```
+ 
+ ![lef write](https://user-images.githubusercontent.com/61493308/124549622-0b65c880-de4d-11eb-858e-5ddfc9ad1857.JPG)
+
+## Generated LEF file
+
+![lef file 2](https://user-images.githubusercontent.com/61493308/124549749-3c45fd80-de4d-11eb-97e6-9e044138c8ca.JPG)
+
+![lef file3](https://user-images.githubusercontent.com/61493308/124549760-410ab180-de4d-11eb-96fd-abe619e4f99b.JPG)
 
 
 Now since we generated the LEF file for the inverter, we need to include it with our design and test it. **The main goal for this whole process till now and next, is to learn how one can add a custom cell design to the OpenLANE flow and work with it.**
@@ -427,12 +438,16 @@ To proceed, we need to provide paths for the env variables of the OpenLANE using
 Typical lib is the one used for the synthesis purposes and remaining two are same as the fast.lib and slow.lib files we usually come across in the ASIC flow.
 Below are the snapshots of the three lib files
 
- #### Typical lib file
-![Typical lib file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/typical%20lib%20file.png)
- #### Fast lib file
-![Fast lib file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/fast%20lib%20file.png)
- #### Slow lib file
-![Slow lob file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/slow%20lib%20file.png)
+
+ ### Fast lib file
+ ![fast lib](https://user-images.githubusercontent.com/61493308/124550159-e2920300-de4d-11eb-97ac-fb0530b3f2f1.JPG)
+
+![fast lib 2](https://user-images.githubusercontent.com/61493308/124550037-b2e2fb00-de4d-11eb-943b-72bbb68e4c52.JPG)
+
+ ### Slow lib file
+ 
+![slow lib](https://user-images.githubusercontent.com/61493308/124550175-e9207a80-de4d-11eb-9c82-0ac7e2e034a6.JPG)
+
 
 Now, we perform synthesis and check whether the custom cell got mapped by abc mapping or not. 
 
