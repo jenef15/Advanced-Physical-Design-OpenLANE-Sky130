@@ -492,7 +492,16 @@ To include extra lef files
    add_lefs -src $lefs
    
  ```
-![image](https://user-images.githubusercontent.com/61493308/124598369-24d53780-de82-11eb-8334-d8208319ccab.png)
+![124370761-71f5b580-dc98-11eb-80c4-7440b39768f8 (1)](https://user-images.githubusercontent.com/61493308/124614995-7259a080-de92-11eb-8164-594cb1b422e5.png)
+
+## Perform synthesis
+``
+run_synthesis
+
+``
+![124370832-0233fa80-dc99-11eb-849b-6288f0294e3d](https://user-images.githubusercontent.com/61493308/124615099-8c937e80-de92-11eb-815f-f091d430183c.png)
+
+
 
 
 ### Fixing of Violations
@@ -500,7 +509,7 @@ Inorder to avoid negative slack as it is not ideal to our design, we optimize th
 
 These are the changes which has to been done to the environment variables and now the flow is run again
 
-![124363182-7483eb00-dc57-11eb-84b7-cdadcff4f8d0](https://user-images.githubusercontent.com/61493308/124612067-a5e6fb80-de8f-11eb-88bd-d66e2063e0af.png)
+
 ![124363548-751d8100-dc59-11eb-9305-6fd64261e7e1](https://user-images.githubusercontent.com/61493308/124612088-ab444600-de8f-11eb-898a-f33afd5a1142.png)
 
 ![124377746-2f999c00-dccb-11eb-8514-5d1dd1a86078](https://user-images.githubusercontent.com/61493308/124612197-c44cf700-de8f-11eb-977e-2015ad2e13ca.png)
