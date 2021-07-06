@@ -528,17 +528,13 @@ After loading the config file in the tool, we observe the same slack values prev
 Below are the ss of the process I followed to reduce these two parameters in the **openLANE flow itself**.
 
 
-## **4.CTS**
+### **4.CTS**
 
 The main concern in generation of clock tree is the clock skew, difference in arrival times of the clock for sequential elements across the design.To ensure timing constraints CTS will add buffers throughout the clock tree which will modify our netlist. This will generate new def file.
 
 ![OCV-clocks](https://user-images.githubusercontent.com/61493308/124596811-54834000-de80-11eb-8d1d-22ffb1a439d9.jpg)
 
-### command for Clock Tree Synthesis
-```
-run_cts
 
-```
 
 After performing CTS, we need to check for our slacks again. This is what we call as "Post-CTS timing analysis". Here we check the hold slack as well because it was not having any significance in previous stages due to absence of clocks. Before that, we need to make some preparations such as creating a db file in the *openROAD* application etc. 
 
