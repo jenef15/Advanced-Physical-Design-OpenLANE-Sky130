@@ -88,7 +88,7 @@ run_CVC
 ```
 
 
-## Invoking OpenLane and performing initial preparations
+### Invoking OpenLane and performing initial preparations
 
 ![day 1 lab commands](https://user-images.githubusercontent.com/61493308/124503228-b8efc200-dde2-11eb-8535-5f39967a29ad.JPG)
 ![day 1 lab commands2](https://user-images.githubusercontent.com/61493308/124503653-9f9b4580-dde3-11eb-838d-2db430279cda.JPG)
@@ -451,118 +451,168 @@ Below are the snapshots of the three lib files
 
 Now, we perform synthesis and check whether the custom cell got mapped by abc mapping or not. 
 
-#### VsdInv getting mapped by the abc mapping tool
-![VsdInv getting mapped by the abc mapping tool](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/custom%20cell%20got%20mapped%20in%20the%20abc%20mapping%20process.png)
+```
+run_synthesis
+```
+![synth command](https://user-images.githubusercontent.com/61493308/124586288-e20c6300-de73-11eb-8b28-90ac9698f522.JPG)
 
-During the synthesis optimization process, we have env variables which effect the timing and area.
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day4/variables%20effecting%20timing%20and%20area%20opt%20in%20synthesis.png)
 
 Below is the timing after the synthesis.
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/timing%20after%20synthesis.png)
+![day 1 slack](https://user-images.githubusercontent.com/61493308/124586235-d456dd80-de73-11eb-82d7-f5c219f88de6.JPG)
 
-As we observed, the slack is too high and we need to reduce it. To do that, we use the previously mentioned env variables. 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/setting%20the%20env%20variables%20for%20timing%20opt%20in%20synthesis.png)
 
-After this, we need to merge our vsd_inv custom cell lef file and perform the synthesis, followed by floorplanning and placement. The reason we are proceeding to the placement despite having negative slack violations, is to check whether our custom cell got placed along with the picorv32a design or not.
 
-![Merging LEF file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/merging%20custom%20cell%20lef%20to%20the%20design%20to%20the%20main%20lef.png)
+
+As we observed, the slack is too high and we need to reduce it. 
+
+After this, we need to merge our custom cell lef file and perform the synthesis, followed by floorplanning and placement. The reason we are proceeding to the placement despite having negative slack violations, is to check whether our custom cell got placed along with the picorv32a design or not.
+
+First,we need to modify config.tcl file in the src folder
+
+###Modified config file
+
+![modified config](https://user-images.githubusercontent.com/61493308/124586762-7a0a4c80-de74-11eb-901b-28e951361653.JPG)
+
+Now we again run the commands
+```
+ package require openLANE 0.9
+ prep -design picorv32a -tag 03-07_16-04 -overwrite
+ set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+ add_lefs -src $lefs
+ run_synthesis
+ run_floorplan
+ run_placement
+
+```
+
+To include extra lef files 
+
+```
+   add_lefs -src $lefs
+   
+ ```
+![image](https://user-images.githubusercontent.com/61493308/124598369-24d53780-de82-11eb-8334-d8208319ccab.png)
+
+
+### Fixing of Violations
+Inorder to avoid negative slack as it is not ideal to our design, we optimize the slack values and maintain a positive value.Inorder to do this we set various environmental variables and check if the slack is changing or not as given in the following image.We can do the modifications in the README.md file present in the configuration directory
+
+These are the changes which has to been done to the environment variables and now the flow is run again
+
+![124363573-a5651f80-dc59-11eb-9628-b037fd4dda32](https://user-images.githubusercontent.com/61493308/124596717-3e757f80-de80-11eb-99c9-78b7d545824c.png)
+
+![124363610-e3624380-dc59-11eb-853c-d820518f3646](https://user-images.githubusercontent.com/61493308/124596755-47fee780-de80-11eb-80fa-23100e60062c.png)
+
+
+
+
+
 
 If we could observe in the main lef file, we could see the custom cell lef details in it.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/after%20merging%20inv%20lef%20into%20merged%20lef.png)
+![lef file 2](https://user-images.githubusercontent.com/61493308/124587840-b8543b80-de75-11eb-80b8-b0c56da85fde.JPG)
 
-![After opt synthesis](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/after%20optm%20synthesis.png)
+
+
 Observe the reduced slack in the above picture after playing with the env variables at the synthesis stage.
 After reducing the slack, we run floorplanning and placement in openLANE. We load the placement def file in the MAGIC tool.
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/def%20file%20after%20placement.png)
+![def file after placement](https://user-images.githubusercontent.com/61493308/124588132-17b24b80-de76-11eb-9a7e-fd1c2f29b6c7.png)
 
-To find the presence of custom cell in the layout, I figured out three options - 
-* Manually zooming and locating the cell
-* Looking for the cell name in the cell manager lib in the MAGIC tool
-* Using a simple command to locate the cell by giving the cell name as input
+![zoom in layout placement](https://user-images.githubusercontent.com/61493308/124588412-62cc5e80-de76-11eb-8a22-82ac16581dd3.JPG)
 
-First one was tidious, so I preferred the second option. Below is the cell name in the cell manager dialogue box. The cell manager will show all cells present in the def file. Though this is not a correct alternative to the first opt, but it works. Below is the picture for it.
-
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/presence%20of%20inv%20cell%20in%20cell%20mng.png)
-
-The third option is pretty interesting and easy as well. Type *findcell instance_name; findbox zoom* and you will 
-
-We succesfully integrated with the design. But, we need to reduce the slack (bring it out of negative value). To do this, we use the OpenSTA, the timing tool in the openLANE flow to opt the slack value. For that, we need to create the config file to use in the OpenSTA tool. Below shown is the config file - 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/config%20file%20for%20sta.png)
 
 After loading the config file in the tool, we observe the same slack values previously during the timing analysis after synthesis stage. If you observe the report, the fanout is high and also the load cap value is high. By reducing them, we can reduce the slack.
 Below are the ss of the process I followed to reduce these two parameters in the **openLANE flow itself**.
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/high%20fanout%20.png)
-#### setting fanout variable to 4 (from 6)
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/setting%20fanout%20var%20to%204.png)
-
-
-
-Now, I will use the modified verilog file during the synthesis process and load that file in the STA tool.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/loading%20back%20.v%20file%20in%20the%20STA%20tool%20after%20fanout%20.png)
-
-We now modified the fanouts. If you could observe the timing report, we have a buf chain in the design. This is because we enabled the BUFFERING env variable in the openLANE and performed the synthesis. Our next choice to improve the slack is to improve these buffers size. This will reduce the cap load and thus effects the slack. 
-
-
-
-We repeat this until we get the improved slack value.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/upgrading%20buff%20size.png)
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/upgrading%20another%20buff%20size%20and%20decreasing%20slack.png)
-
-After recursive modifications, we arrive to the below shown TNS and WNS values.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/final%20wns%20and%20tns%20values.png)
-
-As we know, timing and area are inversly proportional. Though we reduced the slack, we got a huge hit on the area parameter. We can see this after we perform the placement stage with this netlist (First perform floorplan and do not perform synthesis cuz it will rewrite all modifications giving us back our original huge slack).
-
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/increase%20in%20area%20after%20running%20placement%20by%20using%20the%20modified%20netlist%20from%20sta.png)
 
 ### **4.CTS**
 
-So, after getting the opt netlist in terms of timing, we proceed to next step i.e., building **Clock Tree Synthesis (CTS)**. We have few parameters for this stage as well, which effects the performance of this stage. 
-![Env variables for CTS stage](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/cts%20satge%20env%20variables.png)
+The main concern in generation of clock tree is the clock skew, difference in arrival times of the clock for sequential elements across the design.To ensure timing constraints CTS will add buffers throughout the clock tree which will modify our netlist. This will generate new def file.
 
-we run cts by giving command *run_cts*. Below is the snapshot where the CTS layers are created in the design.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/cts%20layers%20getting%20created%20while%20run_cts%20.png)
+![OCV-clocks](https://user-images.githubusercontent.com/61493308/124596811-54834000-de80-11eb-8d1d-22ffb1a439d9.jpg)
+
+## command for Clock Tree Synthesis
+```
+run_cts
+
+```
+
+
+
+
+
+
+
+
+
 After performing CTS, we need to check for our slacks again. This is what we call as "Post-CTS timing analysis". Here we check the hold slack as well because it was not having any significance in previous stages due to absence of clocks. Before that, we need to make some preparations such as creating a db file in the *openROAD* application etc. 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/postcts_timing_analysis_preps.png)
-After preparations, we are good to go to report the timing. Below are the snapshots which shows the report and also shows that Setup and Hold slacks are met.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/postcts_slack.png)
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/setup%20slack%20met.png)
 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/hold%20slack%20met.png)
+
+
 
 We all know that in CTS to adjust slew values, CTS engine (in ASIC Flow) uses special buffers called "Clock Buffers". Same happens in the OpenLANE flow. The CTS engine chooses between 4 types of clock buffers present in the list as shown below. Usally, CTS engine chooses the clock buffers from left to right and checks for slew values. We can force the CTS engine to choose required the clock buffer by removing other buffers from the list. This is want I did in the workshop. I modified the clock buffer env variable list and performed CTS again. Wtih this we get a more improved slack value. 
 
-![**Clock buffer order**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/clk%20buffers%20order.png)
-![**Improved Slack**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/clock%20buff%202%20improved%20slack.png)
 
 ----
 
 ## Day-5 [Final steps for RTL2GDS using tritonRoute and openSTA]
 
-After performing CTS, we are now left with the last step in PnR flow i.e., Routing
 
-### **5.Routing**
+## Power Distribution Network
+Power planning is a step which typically is done with floorplanning in which power grid network is created to distribute power to each part of the design equally. In openLANE flow it is done before routing.
 
-If you remember from the floorplanning stage, we didn't perform the PG routing (Power Ground routing). Unlike ASIC flow, PG Routing happens at the routing stage in the openLANE flow.
-Hence we first build our Power Distribution Network (PDN) by using *gen_pdn*. 
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-5/generating%20the%20pdn.png)
-After building the PDN, we now have a def file (under the tmp directory, but couldn't open it to view). This will be current def file for the tool to proceed furthur.
-We will proceed furthur to perform the routing. Similar to other stages, we have specific env variables for this stage as well. Below is the list of env variables.
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-5/opts%20in%20routing.png)
-Here the parameter which decided the effectiveness of routing is the ROUTING_STRATEGY. More the value of this parameter, higher is the QoR and hence more time. This decided the DRC violations too (high value, less DRCs). The tool used here is TritonRoute. We use the command "run_routing" to perform the routing in OpenLANE.
+![img16](https://user-images.githubusercontent.com/61493308/124599901-d0cb5280-de83-11eb-954a-6f8ff5ad7d8f.png)
+
+command for PDN
+```
+gen_pdn
+
+```
+![124378326-5ad1ba80-dcce-11eb-9a2c-87d2c2b3ae39](https://user-images.githubusercontent.com/61493308/124600975-f0af4600-de84-11eb-96db-edabea0db9da.png)
+
+![124378337-67561300-dcce-11eb-8a07-caa6efe97ce2](https://user-images.githubusercontent.com/61493308/124601079-0c1a5100-de85-11eb-9f55-5f4149d55c7f.png)
+
+
+
+
+
+
+### Routing
+
+![Untitled Workspace](https://user-images.githubusercontent.com/61493308/124505979-513c7580-dde8-11eb-95a0-9b022ab85953.jpg)
+
+
+
+
 
 When we compare to ASIC flow, we recollect that there will be two steps in the routing stage
 1. Global routing 
-2. Detailed routing
+ Global routing: Here the routing region is divided into rectangular gridcells,It forms routing guides for the further routing .It basically     forms a rough path of connection.
 
-Similarly, we have both included in the OpenLANE. Global Routing is performed by the "Fast Route" tool where GCells are created (similar to that of ASIC flow). That data is taken by the "Tritonroute" tool to perform the detailed routing. 
-Unfortunately, I couldn't complete the routing process due to intermediate issues. But I was able to understand the furthur steps which were mostly of looking into files, performing post-route STA, solving for DRC errors and using the def file in the routing database for the RC Extraction step.
-Most route STA is very similar to the process we did during the pre-CTS and post-CTS timing analysis. We need to solve the **DRC** errors using the **MAGIC** layout tool and need to verify **LVS** using **NETGEN** tool. The RC Extraction part is covered in the next section.
+2. Detailed routing
+Detailed routing: The detailed route determines the vias and segments accordingly with the global route solution.This ensures that routing happens within the routing guides.
+
+###command for routing
+ ```
+ run_routing
+ 
+ ```
+ ![124382086-30d6c300-dce3-11eb-8e02-6b507bd76371](https://user-images.githubusercontent.com/61493308/124601784-dde94100-de85-11eb-9e4d-45cf1f0f514d.png)
+
+ ![124382459-2c130e80-dce5-11eb-8d3c-d1aa3a1e696d](https://user-images.githubusercontent.com/61493308/124602018-11c46680-de86-11eb-97ac-941e4d88c299.png)
+ 
+ ###To view routing layout in magic
+ 
+ ```
+ $ magic -T /home/thanga/Desktop/work/tools/openlane_working_dir/pdks/sky130libs.tech lef read ../../tmp/merged.lef def read picorv32a.def
+
+```
+
+![image](https://user-images.githubusercontent.com/61493308/124602598-a75ff600-de86-11eb-9b70-1f0931e87bd9.png)
+
 
 ### **6.RC Extraction**
 
@@ -576,13 +626,9 @@ After all the steps performed till now, we need to do the physical verification.
 
 After getting a clean DRC design, we are ready to tap out (send to the shuttle for fabrication). To extract the GDSII file, we use MAGIC. 
 
-#### GDSII options in MAGIC
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-5/gdsii.png)
 
-#### GDSII saving file in MAGIC
-![](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-5/saving%20gdsii%20file.png)
 
-**With this, I successfully completed the workshop by exploring and understanding the opensource environment in the VLSI Back-end flow of building a chip. I also got a chance to document the differences between the ASIC backend flow and the OpenLANE flow. It was an additional experience in this workshop. Click [here](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/ASIC%20Back-end%20flow%20vs%20OpenLANE%20flow.md) to explore that.**
+
 
 ## Acknowledgments
 
