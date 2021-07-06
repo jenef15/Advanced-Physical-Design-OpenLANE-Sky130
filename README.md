@@ -308,41 +308,57 @@ extract all
 ext2spice
 
 ```
+![grid help](https://user-images.githubusercontent.com/61493308/124543308-a6a57080-de42-11eb-8fa4-6c8cac394da0.JPG)
+
 
 
 #### Extracted Spice netlist 
-![Extracting Spice netlist](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/spice%20netlist%20from%20MAGIC.png)
+
+![Generated spice3 file](https://user-images.githubusercontent.com/61493308/124543418-d3f21e80-de42-11eb-8dee-a3e6bfcc79aa.JPG)
+
 
 After extracting it, we invoke the NGSPice tool to performt the transiant analysis and find the 4 parameters mentioned at the beginning of this section.
 
 #### Invoking NGSpice tool   
-![Invoking NGSpice tool](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/invoking%20ngspice%20tool.png "")
+
+```
+ngspice sky130Ainv.spice
+
+```
+![ngspice](https://user-images.githubusercontent.com/61493308/124543815-9641c580-de43-11eb-833c-7e8166b5e668.JPG)
+
 
 If we observe in the above netlist, there are only components and its interconnects present. To perform the analysis, we need to include libraries for connecting the behavious of components to its libs. We need to add sources and mention the type of analysis.
 
 First, we include the libs file for pmos and nmos. Observe the below lib file in which few parameters are mentioned. But we include the model from this lib. 
 
 #### Parameters in lib file   
-![Invoking NGSpice tool](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/invoking%20ngspice%20tool.png "")
 
 In the same file, we have 32 models for pmos i.e., from pshort_model.0 to pshort_model.3l
 #### pshort_model.0   
-![pshort_model.0](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/pshort%20lib%20model%200.png "")
+![pshort](https://user-images.githubusercontent.com/61493308/124544162-3dbef800-de44-11eb-844f-c7f58dbec934.JPG)
 
-#### pshort_model.1   
-![pshort_model.1](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/pshort%20model%201.png "")
 
-#### pshort_model.2   
-![pshort_model.2](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/pshort%20model%202.png "")
+#### nshort_model.1   
+![nshort](https://user-images.githubusercontent.com/61493308/124544209-53ccb880-de44-11eb-8258-c5ba89f5ccf2.JPG)
+
+
+
 
 If you could observe among these models, width varies. When we compare remaining all models, we could observe changes in width as well as length. Hence, choosing appropriate model will decide our simulations.
 
 After we complete including libs and specifying sources followed by type of analysis, we run simulation
 
 #### Modified spice netlist
-![modified spice netlist](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/modified%20spice%20file.png)
+![edited spice3](https://user-images.githubusercontent.com/61493308/124544321-85de1a80-de44-11eb-8af7-d52d259e8442.JPG)
+
 #### Transiant Analysis
-![Transiant Analysis](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/new_trans%20analysis.png)
+To plot transient analysis output, where y - output node and a - input node
+```
+plot y vs time a
+```
+![transient analysis](https://user-images.githubusercontent.com/61493308/124544347-9098af80-de44-11eb-9253-d9dfa664634f.JPG)
+
 
 Now, we calculate the 4 parameters as part of library characterization
 * Rise transition delay = Time taken for the output signal to reach from 20% of max value to 80% of max value.
@@ -350,44 +366,12 @@ Now, we calculate the 4 parameters as part of library characterization
 * Cell rise delay = Time difference between 50% of rising output and 50% of falling output
 * Cell fall delay = Time difference between 50% of falling output and 50% of rising output
 
-#### Rise transition delay
-![Output 20% value](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/output_20_percntg.png)
-![Output 80% value](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/output_80.png)
-
-Value = 0.098ns
-
-#### Fall transition delay
-![Fall transition delay](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/fall_transition.png)
-
-Value = 0.027ns
-
-#### Cell rise delay
-![Cell rise delay](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/cell_rise_delay.png)
-
-Value = 0.028ns
-
-#### Cell fall delay
-![Cell fall delay](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/cell_fall_delay.png)
-
-Value = 0.0041ns
-
-Thus, we calculate the 4 parameters in the library characterization process.
-
-### Understanding the DRC rules providing by PDK in the form of tech file.
-
-We try to understand the DRC rules provided by Skylane130 PDK using its tech file and the MAGIC tool. First we extracted the drc_rules folder and then imported metal3 mag file into the MAGIC tool, to observe the DRC rules defined for it.
-
-#### Metal 3 mag file in MAGIC tool
-![Metal 3 mag file]()
 
 
-#### DRC rules definition in Skylane130A tech file
-![Tech file](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-3/drc%20rules%20in%20skylane%20130%20tech%20file.png)
 
-We can related these rules with the skylane google pdk website. Here under Design rules -> Periphery rules, all the DRC rules are defined for each metal, poly and so on.
-Here is the [link](https://skywater-pdk.readthedocs.io/en/latest/rules/periphery.html#m3)
 
-----
+
+
 
 ## Day-4 [Pre-layout timing analysis and importance of good clock tree]
 
@@ -396,18 +380,20 @@ Before we move to this step, we need to make sure that the layout follows two ma
 * The ports must stay on the interconnect of the grids
 * The width and height of the std cell must be odd multiples of no.of grids
 
-#### Grids in the layout
-![Grids](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/grids%20in%20layout.png)
+
+
 
 To understand this, we first need to convert the grids size in the MAGIC tool window to the track pitch size. For that, first we observe the values in the tracks.info file under the skylane130 files which is under Skylane130a PDK.
 
 #### Tracks info file
-![Tracks info](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/tracks%20info.png)
+![tracks](https://user-images.githubusercontent.com/61493308/124545175-2aad2780-de46-11eb-8116-8063988493fe.JPG)
+
 
 Here the first value defines the offset followed by the pitch width. We have these values for both X and Y axis. We transform the default grid size in the MAGIC tool to the tracks.info defined values. We use the command *grid x y xorigin yorigin* where x is horizontal pitch value, y is vertical pitch value, xorigin is horizontal offset value and yorigin is vertical offset value. After implementing this command, our grid structure looks like below.
 
 #### Modified Grid structure 
-![Modified grid structure](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/grids%20changed%20and%20pins%20on%20the%20interconnections.png)
+![grid](https://user-images.githubusercontent.com/61493308/124545072-fafe1f80-de45-11eb-972d-08cfd11e9361.JPG)
+![grid2](https://user-images.githubusercontent.com/61493308/124545085-00f40080-de46-11eb-97ee-f82046035262.JPG)
 
 By observing the above layout, it is clear that the two rules mentioned at the beginning of the section are met. Ports A and Y are on the interconnects of the grid and the size of the cell layout is 3 times of single grid. 
 
@@ -419,11 +405,11 @@ Since the requirements are met, next step is to generate the LEF file. To do thi
 
 **Naming the Pin :**
 To do this, we first select the area of the pin (suppose 'A') and click on *Edit* and *Text*. We now get the text dialogue box. We define the name, size of the text, order of the pin and the metal type. For Pins, we use *locali* as metal type and for power, we use *metal 3*.
-#### Text Option in the Edit dropdown box (The reason to specify this was, I used delete and other edit commands from here itself previously to experiment)
-![Text Option in the Edit dropdown box](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/text%20option.png)
+
 
 #### Text Dialogue box for pin "A"
-![Text Dialogue box for pin "A"](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/conveting%20pins%20to%20ports.png)
+![conveting pins to ports](https://user-images.githubusercontent.com/61493308/124545424-a14a2500-de46-11eb-9d28-09b378464da9.png)
+
 
 **Defining Pin use and attributes :**
 In this step, we define the pin class as *input/output* and pin use as *signal/power/ground*. 
@@ -433,7 +419,7 @@ The commands we use to perform these are -
  
  After defining the pins, we extract the LEF file from the layout by using command *lef write*. Below is the lef file generated for the inverter layout.
  #### LEF file for inverter
-![LEF file for inverter](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/Day-4/grids%20changed%20and%20pins%20on%20the%20interconnections.png)
+
 
 Now since we generated the LEF file for the inverter, we need to include it with our design and test it. **The main goal for this whole process till now and next, is to learn how one can add a custom cell design to the OpenLANE flow and work with it.**
 
