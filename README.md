@@ -516,17 +516,6 @@ If we could observe in the main lef file, we could see the custom cell lef detai
 
 
 
-Observe the reduced slack in the above picture after playing with the env variables at the synthesis stage.
-After reducing the slack, we run floorplanning and placement in openLANE. We load the placement def file in the MAGIC tool.
-
-![def file after placement](https://user-images.githubusercontent.com/61493308/124588132-17b24b80-de76-11eb-9a7e-fd1c2f29b6c7.png)
-
-![zoom in layout placement](https://user-images.githubusercontent.com/61493308/124588412-62cc5e80-de76-11eb-8a22-82ac16581dd3.JPG)
-
-
-After loading the config file in the tool, we observe the same slack values previously during the timing analysis after synthesis stage. If you observe the report, the fanout is high and also the load cap value is high. By reducing them, we can reduce the slack.
-Below are the ss of the process I followed to reduce these two parameters in the **openLANE flow itself**.
-
 
 ### **4.CTS**
 
@@ -604,9 +593,8 @@ Detailed routing: The detailed route determines the vias and segments accordingl
 
 ```
 
-![image](https://user-images.githubusercontent.com/61493308/124602598-a75ff600-de86-11eb-9b70-1f0931e87bd9.png)
+![image](https://user-images.githubusercontent.com/61493308/124614565-fe1efd00-de91-11eb-9772-68954b5711dd.png)
 
-![image](https://user-images.githubusercontent.com/61493308/124612544-0a09bf80-de90-11eb-995b-fe0bb068f9ba.png)
 
 
 ### **6.RC Extraction**
