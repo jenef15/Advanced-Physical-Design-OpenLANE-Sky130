@@ -500,10 +500,12 @@ Inorder to avoid negative slack as it is not ideal to our design, we optimize th
 
 These are the changes which has to been done to the environment variables and now the flow is run again
 
-![124363573-a5651f80-dc59-11eb-9628-b037fd4dda32](https://user-images.githubusercontent.com/61493308/124596717-3e757f80-de80-11eb-99c9-78b7d545824c.png)
+![124363182-7483eb00-dc57-11eb-84b7-cdadcff4f8d0](https://user-images.githubusercontent.com/61493308/124612067-a5e6fb80-de8f-11eb-88bd-d66e2063e0af.png)
+![124363548-751d8100-dc59-11eb-9305-6fd64261e7e1](https://user-images.githubusercontent.com/61493308/124612088-ab444600-de8f-11eb-898a-f33afd5a1142.png)
 
-![124363610-e3624380-dc59-11eb-853c-d820518f3646](https://user-images.githubusercontent.com/61493308/124596755-47fee780-de80-11eb-80fa-23100e60062c.png)
+![124377746-2f999c00-dccb-11eb-8514-5d1dd1a86078](https://user-images.githubusercontent.com/61493308/124612197-c44cf700-de8f-11eb-977e-2015ad2e13ca.png)
 
+![124377866-f281d980-dccb-11eb-9411-b929459be206](https://user-images.githubusercontent.com/61493308/124612264-cfa02280-de8f-11eb-8338-8fd4994c6f49.png)
 
 
 
@@ -538,14 +540,6 @@ run_cts
 
 ```
 
-
-
-
-
-
-
-
-
 After performing CTS, we need to check for our slacks again. This is what we call as "Post-CTS timing analysis". Here we check the hold slack as well because it was not having any significance in previous stages due to absence of clocks. Before that, we need to make some preparations such as creating a db file in the *openROAD* application etc. 
 
 
@@ -573,6 +567,9 @@ gen_pdn
 ![124378326-5ad1ba80-dcce-11eb-9a2c-87d2c2b3ae39](https://user-images.githubusercontent.com/61493308/124600975-f0af4600-de84-11eb-96db-edabea0db9da.png)
 
 ![124378337-67561300-dcce-11eb-8a07-caa6efe97ce2](https://user-images.githubusercontent.com/61493308/124601079-0c1a5100-de85-11eb-9f55-5f4149d55c7f.png)
+
+
+
 
 
 
@@ -612,6 +609,8 @@ Detailed routing: The detailed route determines the vias and segments accordingl
 ```
 
 ![image](https://user-images.githubusercontent.com/61493308/124602598-a75ff600-de86-11eb-9b70-1f0931e87bd9.png)
+
+![image](https://user-images.githubusercontent.com/61493308/124612544-0a09bf80-de90-11eb-995b-fe0bb068f9ba.png)
 
 
 ### **6.RC Extraction**
