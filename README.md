@@ -6,8 +6,7 @@ First, I will be briefing about the Openlane flow and the tools involved in it. 
 ## OpenLane 
 
 OpenLane Flow is an automated RTL2GDSII flow which involves various opensource tools like OpenSTA, Yosys, Netgen, Magic etc. Below is the image illustration the flow along with
-the tools involved. The main motto of this Openlane is to automate the RTL2toGDSII flow and producing clean GDSII files. "_OpenLANE is a tape-out-hardened flow that addresses two main use cases: hardening a macro and integrating
-a System-on-a-Chip (SoC).
+the tools involved. The main motto of this Openlane is to automate the RTL2toGDSII flow and producing clean GDSII files. 
 ![OpenLane Flow - from official github repo](https://github.com/efabless/openlane/raw/master/docs/_static/openlane.flow.1.png "OpenLane Flow - from official github repo")
 
 ## Table of Contents
@@ -88,13 +87,13 @@ run_CVC
 ```
 
 
-### Invoking OpenLane and performing initial preparations
+## Invoking OpenLane and performing initial preparations
 
 ![day 1 lab commands](https://user-images.githubusercontent.com/61493308/124503228-b8efc200-dde2-11eb-8535-5f39967a29ad.JPG)
 ![day 1 lab commands2](https://user-images.githubusercontent.com/61493308/124503653-9f9b4580-dde3-11eb-838d-2db430279cda.JPG)
 
 
-### **1.Synthesis**
+## **1.Synthesis**
 
 ![synth command](https://user-images.githubusercontent.com/61493308/124503946-2a7c4000-dde4-11eb-8d19-474c52604738.JPG)
 ![ABC tech map](https://user-images.githubusercontent.com/61493308/124504264-bd1cdf00-dde4-11eb-8497-ac63a2c42294.JPG)
@@ -102,12 +101,12 @@ run_CVC
 
 
 
-#### Summary of cells in the design after optimization in the synthesis
+ ## Summary of cells in the design after optimization in the synthesis
 
 ![day2 statistics](https://user-images.githubusercontent.com/61493308/124504431-12f18700-dde5-11eb-8b98-6b87467de455.JPG)
 
 
-#### Slack Report of min and max paths of the clock
+## Slack Report of min and max paths of the clock
 ![slack min max paths](https://user-images.githubusercontent.com/61493308/124504494-39172700-dde5-11eb-947c-a2708ef5c2eb.JPG)
 
 
@@ -118,31 +117,31 @@ run_CVC
 
 A brief understanding on floorplan stage and the factors involved in it like core utilization, aspect ratio etc., was given. Later, I came across the method of loading the prev run file while preparing the openlane. While performing floorplan, I came across the precedency of various config files. Those files and the order of precedence is shown below.
 ### **2.Floorplanning**
-#### Default floorplan config file
+### Default floorplan config file
 
 ![floorplan tcl](https://user-images.githubusercontent.com/61493308/124504845-e12cf000-dde5-11eb-9cc7-c3478a2cd43a.JPG)
 
 ![floorplan tcl2](https://user-images.githubusercontent.com/61493308/124504855-e5590d80-dde5-11eb-8c76-9ccb9545cd79.JPG)
 
-#### config file
+### config file
 
 ![config tcl](https://user-images.githubusercontent.com/61493308/124504675-94e1b000-dde5-11eb-8a67-a8e4e5a4a6e6.JPG)
 
 
 
 
-#### Precendency
+### Precendency
 **Sky130a config file > config file > default floorplan config file**
 
 
 In floorplan, we fix the core utilization ratio, aspect ratio and provide decap cells, welltap cells. Later, we fix the I/O pins position. The floorplan was done using *run_floorplan* command and employed the **Magic** tool to view the layout by importing the def file generated. 
 
-#### Floorplanning in OpenLANE
+## Floorplanning in OpenLANE
 ![day2 floorplan cmnds](https://user-images.githubusercontent.com/61493308/124505162-85169b80-dde6-11eb-885e-f19f748a69d0.JPG)
 ![floorplan1](https://user-images.githubusercontent.com/61493308/124505213-9c558900-dde6-11eb-8c58-410f79e31172.JPG)
 
 
-#### Magic tool invoking by providing lef, tech library and def file
+## Magic tool invoking by providing lef, tech library and def file
 
 
 ```
@@ -154,25 +153,25 @@ magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../.
 ![Untitled Workspace](https://user-images.githubusercontent.com/61493308/124505979-513c7580-dde8-11eb-95a0-9b022ab85953.jpg)
 
 
-#### Layout after floorplan stage in Magic tool
+## Layout after floorplan stage in Magic tool
 ![floorplan view1](https://user-images.githubusercontent.com/61493308/124506530-754c8680-dde9-11eb-8b89-88096b7fff6e.JPG)
 
 
 
-#### Welltap cells arranged in checker board fashion
+## Welltap cells arranged in checker board fashion
 ![pins and decap cells](https://user-images.githubusercontent.com/61493308/124506559-83020c00-dde9-11eb-8de1-e1bca3388e41.JPG)
 
 
-#### Location of Std cells in the floorplan
+## Location of Std cells in the floorplan
 ![standard cell layout](https://user-images.githubusercontent.com/61493308/124507677-e725cf80-ddeb-11eb-9e23-485942dce4ea.JPG)
 
 
 
-### **3.Placement**
+## **3.Placement**
 
 After performing floorplan, we place the standard cells (which were already present at the bottom left of the design) and observe the DRCs. We do this by giving the command *run_placement* in OpenLANE. Placement in OpenLANE occurs in two stages - Global placement and Detailed placement. In global placement, all cells are placed on the floorplan in a random manner and in detailed placement, the cells positions are legalized. Legalization in the sense, it makes sure that cells are not overlapping. In OpenLANE, placement happens by having a goal (for congestion driven) to reduce the HPWL (Half Parameter Wire Length), hence taking many iterations. We invoke the **Magic** tool to view the layout of the design after placement of std cells. 
 
-## Placement in OpenLANE
+### Placement in OpenLANE
 
 ```
 run_placement
@@ -182,7 +181,7 @@ run_placement
 ![placement](https://user-images.githubusercontent.com/61493308/124507766-1e947c00-ddec-11eb-8702-9f5f5b2b20f9.JPG)
 
 
-#### Invoking Magic tool to view placement.def file
+## Invoking Magic tool to view placement.def file
 
 ```
 magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
@@ -193,7 +192,7 @@ magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../.
 
 
 
-#### Layout of the design after Placement stage in Magic tool
+## Layout of the design after Placement stage in Magic tool
 
 ![placement layout](https://user-images.githubusercontent.com/61493308/124510008-949ae200-ddf0-11eb-9b55-3be57cb5cf2c.JPG)
 
@@ -262,7 +261,7 @@ After this whole process, we get a doping configuration like P+P-N for N-well an
 Now, since our gate, source and drain regions are ready, we now build the contacts to control them.
 We, first, etch the thin oxide using HF solution. We deposit titanium on wafer surface using sputtering process. Then, we heat the wafer in N2 atmosphere which results in the formation of TiS2 in-place of pure titanium. We also have TiN developed on the wafer which will be used for local communications.
 Now, we do photo-lithography (placing photo-resist material and removing the same from unwanted areas using masks). After this we will be left out with the TiN which will be used for interconnects.
-#### A view of CMOS Inverter 
+## A view of CMOS Inverter 
 ![cmos middle step](https://user-images.githubusercontent.com/61493308/124510500-944f1680-ddf1-11eb-9091-0b73e97d869f.png)
 
 
@@ -273,22 +272,22 @@ To develop the higher metal connections, we follow the photo-lithography process
 
 After this, we deposit a series of materials and do photo-lithography and prepare 3 metal layers. After this, we drill holes to the terminals and get our connections to control our source, gate and drain  regions of the inverter created. If we carefully observe, we totally used 16 masks (the layouts) to build this device. Hence, this complete process is called as “16-mask CMOS process”
 
-#### Final view of CMOS Inverter 
+## Final view of CMOS Inverter 
 
 ![cmos last step](https://user-images.githubusercontent.com/61493308/124510521-9e711500-ddf1-11eb-9090-1e4e2ea69785.png)
 
 
-### Understanding DRC in MAGIC tool
+## Understanding DRC in MAGIC tool
 To understand the MAGIC tool and its DRC engine, we use the inverter design mag file. For that, we clone the repo and run MAGIC tool using the **Skylane130A** tech file and **inverter** mag file.
 
-#### Cloning the repo  for the inverter  
+### Cloning the repo  for the inverter  
 ![image](https://user-images.githubusercontent.com/61493308/124510849-59011780-ddf2-11eb-90b5-2b323dca6ad0.png)
 
-#### Layout of the inverter  
+### Layout of the inverter  
 
 ![magic inverter1](https://user-images.githubusercontent.com/61493308/124510906-733af580-ddf2-11eb-843a-2de2132eddb0.JPG)
 
-#### Layers menubar 
+### Layers menubar 
 
 ![layout window](https://user-images.githubusercontent.com/61493308/124510946-8a79e300-ddf2-11eb-894e-a58933ee32ee.JPG)
 
@@ -319,7 +318,7 @@ ext2spice
 
 After extracting it, we invoke the NGSPice tool to performt the transiant analysis and find the 4 parameters mentioned at the beginning of this section.
 
-#### Invoking NGSpice tool   
+## Invoking NGSpice tool   
 
 ```
 ngspice sky130Ainv.spice
@@ -332,14 +331,14 @@ If we observe in the above netlist, there are only components and its interconne
 
 First, we include the libs file for pmos and nmos. Observe the below lib file in which few parameters are mentioned. But we include the model from this lib. 
 
-#### Parameters in lib file   
+### Parameters in lib file   
 
 In the same file, we have 32 models for pmos i.e., from pshort_model.0 to pshort_model.3l
-#### pshort_model.0   
+### pshort_model.0   
 ![pshort](https://user-images.githubusercontent.com/61493308/124544162-3dbef800-de44-11eb-844f-c7f58dbec934.JPG)
 
 
-#### nshort_model.1   
+### nshort_model.1   
 ![nshort](https://user-images.githubusercontent.com/61493308/124544209-53ccb880-de44-11eb-8258-c5ba89f5ccf2.JPG)
 
 
@@ -349,7 +348,7 @@ If you could observe among these models, width varies. When we compare remaining
 
 After we complete including libs and specifying sources followed by type of analysis, we run simulation
 
-#### Modified spice netlist
+### Modified spice netlist
 ![edited spice3](https://user-images.githubusercontent.com/61493308/124544321-85de1a80-de44-11eb-8af7-d52d259e8442.JPG)
 
 #### Transiant Analysis
@@ -385,13 +384,13 @@ Before we move to this step, we need to make sure that the layout follows two ma
 
 To understand this, we first need to convert the grids size in the MAGIC tool window to the track pitch size. For that, first we observe the values in the tracks.info file under the skylane130 files which is under Skylane130a PDK.
 
-#### Tracks info file
+### Tracks info file
 ![tracks](https://user-images.githubusercontent.com/61493308/124545175-2aad2780-de46-11eb-8116-8063988493fe.JPG)
 
 
 Here the first value defines the offset followed by the pitch width. We have these values for both X and Y axis. We transform the default grid size in the MAGIC tool to the tracks.info defined values. We use the command *grid x y xorigin yorigin* where x is horizontal pitch value, y is vertical pitch value, xorigin is horizontal offset value and yorigin is vertical offset value. After implementing this command, our grid structure looks like below.
 
-#### Modified Grid structure 
+### Modified Grid structure 
 ![grid](https://user-images.githubusercontent.com/61493308/124545072-fafe1f80-de45-11eb-972d-08cfd11e9361.JPG)
 ![grid2](https://user-images.githubusercontent.com/61493308/124545085-00f40080-de46-11eb-97ee-f82046035262.JPG)
 
@@ -407,7 +406,7 @@ Since the requirements are met, next step is to generate the LEF file. To do thi
 To do this, we first select the area of the pin (suppose 'A') and click on *Edit* and *Text*. We now get the text dialogue box. We define the name, size of the text, order of the pin and the metal type. For Pins, we use *locali* as metal type and for power, we use *metal 3*.
 
 
-#### Text Dialogue box for pin "A"
+### Text Dialogue box for pin "A"
 ![conveting pins to ports](https://user-images.githubusercontent.com/61493308/124545424-a14a2500-de46-11eb-9d28-09b378464da9.png)
 
 
@@ -471,7 +470,7 @@ After this, we need to merge our custom cell lef file and perform the synthesis,
 
 First,we need to modify config.tcl file in the src folder
 
-###Modified config file
+## Modified config file
 
 ![modified config](https://user-images.githubusercontent.com/61493308/124586762-7a0a4c80-de74-11eb-901b-28e951361653.JPG)
 
@@ -527,13 +526,13 @@ After loading the config file in the tool, we observe the same slack values prev
 Below are the ss of the process I followed to reduce these two parameters in the **openLANE flow itself**.
 
 
-### **4.CTS**
+## **4.CTS**
 
 The main concern in generation of clock tree is the clock skew, difference in arrival times of the clock for sequential elements across the design.To ensure timing constraints CTS will add buffers throughout the clock tree which will modify our netlist. This will generate new def file.
 
 ![OCV-clocks](https://user-images.githubusercontent.com/61493308/124596811-54834000-de80-11eb-8d1d-22ffb1a439d9.jpg)
 
-## command for Clock Tree Synthesis
+### command for Clock Tree Synthesis
 ```
 run_cts
 
@@ -561,7 +560,7 @@ We all know that in CTS to adjust slew values, CTS engine (in ASIC Flow) uses sp
 ## Day-5 [Final steps for RTL2GDS using tritonRoute and openSTA]
 
 
-## Power Distribution Network
+### Power Distribution Network
 Power planning is a step which typically is done with floorplanning in which power grid network is created to distribute power to each part of the design equally. In openLANE flow it is done before routing.
 
 ![img16](https://user-images.githubusercontent.com/61493308/124599901-d0cb5280-de83-11eb-954a-6f8ff5ad7d8f.png)
@@ -582,7 +581,8 @@ gen_pdn
 
 ### Routing
 
-![Untitled Workspace](https://user-images.githubusercontent.com/61493308/124505979-513c7580-dde8-11eb-95a0-9b022ab85953.jpg)
+![Untitled Workspace (1)](https://user-images.githubusercontent.com/61493308/124609858-a1b9de80-de8d-11eb-95b2-0f3163babd8d.jpg)
+
 
 
 
