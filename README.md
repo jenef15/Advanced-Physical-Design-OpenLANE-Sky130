@@ -595,7 +595,7 @@ When we compare to ASIC flow, we recollect that there will be two steps in the r
 2. Detailed routing
 Detailed routing: The detailed route determines the vias and segments accordingly with the global route solution.This ensures that routing happens within the routing guides.
 
-###command for routing
+### command for routing
  ```
  run_routing
  
@@ -604,7 +604,7 @@ Detailed routing: The detailed route determines the vias and segments accordingl
 
  ![124382459-2c130e80-dce5-11eb-8d3c-d1aa3a1e696d](https://user-images.githubusercontent.com/61493308/124602018-11c46680-de86-11eb-97ac-941e4d88c299.png)
  
- ###To view routing layout in magic
+ ### To view routing layout in magic
  
  ```
  $ magic -T /home/thanga/Desktop/work/tools/openlane_working_dir/pdks/sky130libs.tech lef read ../../tmp/merged.lef def read picorv32a.def
