@@ -15,7 +15,7 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
   
   > [1.  Synthesis](#1--Synthesis)
    
-* [**Day-2 [Good floorplan vs bad floorplan and introduction to library cells]**]
+* [Day-2 Good floorplan vs bad floorplan and introduction to library cells](Day-2-Good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 
   > [**2. Floorplanning**]
  
