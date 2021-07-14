@@ -13,7 +13,7 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
 
 * [Day-1 Inception of open-source EDA, OpenLANE and Sky130 PDK](#Day-1-Inception-of-open-source-EDA-OpenLANE-and-Sky130-PDK)
   
-  > [1. Synthesis](#1. --Synthesis)
+  > [1.Synthesis](#1-Synthesis)
    
 * [**Day-2 [Good floorplan vs bad floorplan and introduction to library cells]**]
 
@@ -92,7 +92,7 @@ run_CVC
 ![day 1 lab commands2](https://user-images.githubusercontent.com/61493308/124503653-9f9b4580-dde3-11eb-838d-2db430279cda.JPG)
 
 
-## **1.Synthesis**
+## 1.Synthesis
 
 ![synth command](https://user-images.githubusercontent.com/61493308/124503946-2a7c4000-dde4-11eb-8d19-474c52604738.JPG)
 ![ABC tech map](https://user-images.githubusercontent.com/61493308/124504264-bd1cdf00-dde4-11eb-8497-ac63a2c42294.JPG)
