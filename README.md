@@ -11,33 +11,32 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
 
 ## Table of Contents
 
-* [**Day-1 [Inception of open-source EDA, OpenLANE and Sky130 PDK]**](https://github.com/#day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)
+* [Day-1 Inception of open-source EDA, OpenLANE and Sky130 PDK](Day-1-Inception-of-open-source-EDA,-OpenLANE-and-Sky130-PDK)
   
-  > [**1. Synthesis**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#1synthesis)
+  > [**1. Synthesis**](
    
-* [**Day-2 [Good floorplan vs bad floorplan and introduction to library cells]**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/README.md#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
+* [**Day-2 [Good floorplan vs bad floorplan and introduction to library cells]**]
 
-  > [**2. Floorplanning**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#2floorplanning)
+  > [**2. Floorplanning**]
  
-  > [**3. Placement**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#3placement)
+  > [**3. Placement**]
    
-* [**Day-3 [Design library cell using Magic Layout and ngspice characterization]**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/README.md#day-3-design-library-cell-using-magic-layout-and-ngspice-characterization)
+* [**Day-3 [Design library cell using Magic Layout and ngspice characterization]**]
      
-  > [**Working with a custom cell design (Here it was an inverter)**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#understanding-drc-in-magic-tool)
-   
-* [**Day-4 [Pre-layout timing analysis and importance of good clock tree]**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/README.md#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+  > [**Working with a custom cell design (Here it was an inverter)**]
+* [**Day-4 [Pre-layout timing analysis and importance of good clock tree]**]
       
-  > [**4. CTS**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#4cts)
+  > [**4. CTS**]
  
-* [**Day-5 [Final steps for RTL2GDS using tritonRoute and openSTA]**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#day-5-final-steps-for-rtl2gds-using-tritonroute-and-opensta)
+* [**Day-5 [Final steps for RTL2GDS using tritonRoute and openSTA]**]
    
-  > [**5. Routing**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130#5routing)
+  > [**5. Routing**]
   
-  > [**6. RC Extraction**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/README.md#6rc-extraction)
+  > [**6. RC Extraction**]
   
-  > [**7. Physical Verification**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/README.md#7physical-verification)
+  > [**7. Physical Verification**]
    
-  > [**8. GDSII**](https://github.com/jenef15/Advanced-Physical-Design-OpenLANE-Sky130/blob/main/README.md#8gdsii)
+  > [**8. GDSII**]
 -----------------
 
 ## Day-1 [Inception of open-source EDA, OpenLANE and Sky130 PDK]
