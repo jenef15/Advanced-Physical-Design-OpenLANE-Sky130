@@ -112,7 +112,7 @@ run_CVC
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Day-2 [Good floorplan vs bad floorplan and introduction to library cells]
+## Day-2 Good floorplan vs bad floorplan and introduction to library cells
 
 A brief understanding on floorplan stage and the factors involved in it like core utilization, aspect ratio etc., was given. Later, I came across the method of loading the prev run file while preparing the openlane. While performing floorplan, I came across the precedency of various config files. Those files and the order of precedence is shown below.
 ### **2.Floorplanning**
