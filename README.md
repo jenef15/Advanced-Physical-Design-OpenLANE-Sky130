@@ -11,7 +11,7 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
 
 ## Table of Contents
 
-* [Day-1 Inception of open-source EDA, OpenLANE and Sky130 PDK](Day-1-Inception-of-open-source-EDA,-OpenLANE-and-Sky130-PDK)
+* [Day-1 Inception of open-source EDA, OpenLANE and Sky130 PDK](Day-1-Inception-of-open-source-EDA-OpenLANE-and-Sky130-PDK)
   
   > [**1. Synthesis**](
    
