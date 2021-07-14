@@ -23,7 +23,7 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
    
 * [Day-3 Design library cell using Magic Layout and ngspice characterization](#Day-3-Design-library-cell-using-Magic-Layout-and-ngspice-characterization)
      
-  > [Working with a custom cell design -Here it was an inverter](#Working-with-a-custom-cell-design-Here-it-was-an-inverter)
+  > [Working with a custom cell design (Here it was an inverter)](#Working-with-a-custom-cell-design-Here-it-was-an-inverter)
 * [Day-4 Pre-layout timing analysis and importance of good clock tree](#Day-4-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
       
   > [4. CTS](#4--CTS)
@@ -209,6 +209,8 @@ We can set the same in OpenLANE as well. Below is the config file in which the e
 ------
 
 ## Day-3 [Design library cell using Magic Layout and ngspice characterization]
+
+## Working with a custom cell design (Here it was an inverter)
 
 ### 16-mask CMOS process
 I found this interesting, hence noted it down while imagining each step in the process. 
