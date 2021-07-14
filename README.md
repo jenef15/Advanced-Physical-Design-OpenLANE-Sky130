@@ -112,10 +112,10 @@ run_CVC
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Day-2 Good floorplan vs bad floorplan and introduction to library cells
+## Day-2 [Good floorplan vs bad floorplan and introduction to library cells]
 
 A brief understanding on floorplan stage and the factors involved in it like core utilization, aspect ratio etc., was given. Later, I came across the method of loading the prev run file while preparing the openlane. While performing floorplan, I came across the precedency of various config files. Those files and the order of precedence is shown below.
-### 2.Floorplanning
+## 2.  Floorplanning
 ### Default floorplan config file
 
 ![floorplan tcl](https://user-images.githubusercontent.com/61493308/124504845-e12cf000-dde5-11eb-9cc7-c3478a2cd43a.JPG)
@@ -166,7 +166,7 @@ magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../.
 
 
 
-## 3.Placement
+## 3.  Placement
 
 After performing floorplan, we place the standard cells (which were already present at the bottom left of the design) and observe the DRCs. We do this by giving the command *run_placement* in OpenLANE. Placement in OpenLANE occurs in two stages - Global placement and Detailed placement. In global placement, all cells are placed on the floorplan in a random manner and in detailed placement, the cells positions are legalized. Legalization in the sense, it makes sure that cells are not overlapping. In OpenLANE, placement happens by having a goal (for congestion driven) to reduce the HPWL (Half Parameter Wire Length), hence taking many iterations. We invoke the **Magic** tool to view the layout of the design after placement of std cells. 
 
@@ -525,7 +525,7 @@ If we could observe in the main lef file, we could see the custom cell lef detai
 
 
 
-### **4.CTS**
+### 4.  CTS
 
 The main concern in generation of clock tree is the clock skew, difference in arrival times of the clock for sequential elements across the design.To ensure timing constraints CTS will add buffers throughout the clock tree which will modify our netlist. This will generate new def file.
 
@@ -569,7 +569,7 @@ gen_pdn
 
 
 
-### Routing
+##  Routing
 
 ![Untitled Workspace (1)](https://user-images.githubusercontent.com/61493308/124609858-a1b9de80-de8d-11eb-95b2-0f3163babd8d.jpg)
 
@@ -605,15 +605,15 @@ Detailed routing: The detailed route determines the vias and segments accordingl
 
 
 
-### **6.RC Extraction**
+## 6.RC Extraction
 
 This step is to extract the SPEF file from the routing database. Unfortunately, we do not have a SPEF Extractor embedded in the OpenLANE flow. Hence we use the SPEF Extractor tool seperately which is mostly of running python scripts whose inputs are lef (the physical library) file and the def (the routed design) file. 
 
-### **7.Physical Verification**
+## 7.Physical Verification
 
 After all the steps performed till now, we need to do the physical verification. We have two tools embedded in the OpenLANE flow - MAGIC for DRC and NETGEN for LVS. 
 
-### **8.GDSII**
+## 8.GDSII
 
 After getting a clean DRC design, we are ready to tap out (send to the shuttle for fabrication). To extract the GDSII file, we use MAGIC. 
 
