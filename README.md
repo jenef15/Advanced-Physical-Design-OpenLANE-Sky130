@@ -17,13 +17,13 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
    
 * [Day-2 Good floorplan vs bad floorplan and introduction to library cells](#Day-2-Good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 
-  > [2. Floorplanning](#2--Floorpanning)
+  > [2. Floorplanning](#2--Floorplanning)
  
   > [3. Placement](#3--Placement)
    
-* [Day-3 Design library cell using Magic Layout and ngspice characterization](#Day-3-Design-library-cell-using-Magic-Layout-and-ngspice- characterization)
+* [Day-3 Design library cell using Magic Layout and ngspice characterization](#Day-3-Design-library-cell-using-Magic-Layout-and-ngspice-characterization)
      
-  > [Working with a custom cell design (Here it was an inverter)](#Working-with-a-custom-cell-design-(Here-it-was-an-inverter))
+  > [Working with a custom cell design -Here it was an inverter](#Working-with-a-custom-cell-design-Here-it-was-an-inverter)
 * [Day-4 Pre-layout timing analysis and importance of good clock tree](#Day-4-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
       
   > [4. CTS](#4--CTS)
@@ -569,7 +569,7 @@ gen_pdn
 
 
 
-##  Routing
+## 5. Routing
 
 ![Untitled Workspace (1)](https://user-images.githubusercontent.com/61493308/124609858-a1b9de80-de8d-11eb-95b2-0f3163babd8d.jpg)
 
@@ -605,15 +605,15 @@ Detailed routing: The detailed route determines the vias and segments accordingl
 
 
 
-## 6.RC Extraction
+## 6.  RC Extraction
 
 This step is to extract the SPEF file from the routing database. Unfortunately, we do not have a SPEF Extractor embedded in the OpenLANE flow. Hence we use the SPEF Extractor tool seperately which is mostly of running python scripts whose inputs are lef (the physical library) file and the def (the routed design) file. 
 
-## 7.Physical Verification
+## 7.  Physical Verification
 
 After all the steps performed till now, we need to do the physical verification. We have two tools embedded in the OpenLANE flow - MAGIC for DRC and NETGEN for LVS. 
 
-## 8.GDSII
+## 8.  GDSII
 
 After getting a clean DRC design, we are ready to tap out (send to the shuttle for fabrication). To extract the GDSII file, we use MAGIC. 
 
