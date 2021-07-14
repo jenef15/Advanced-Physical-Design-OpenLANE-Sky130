@@ -15,28 +15,28 @@ the tools involved. The main motto of this Openlane is to automate the RTL2toGDS
   
   > [1.  Synthesis](#1--Synthesis)
    
-* [Day-2 Good floorplan vs bad floorplan and introduction to library cells](Day-2-Good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
+* [Day-2 Good floorplan vs bad floorplan and introduction to library cells](#Day-2-Good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 
-  > [**2. Floorplanning**]
+  > [2. Floorplanning](#2--Floorpanning)
  
-  > [**3. Placement**]
+  > [3. Placement](#3--Placement)
    
-* [**Day-3 [Design library cell using Magic Layout and ngspice characterization]**]
+* [Day-3 Design library cell using Magic Layout and ngspice characterization](#Day-3-Design-library-cell-using-Magic-Layout-and-ngspice- characterization)
      
-  > [**Working with a custom cell design (Here it was an inverter)**]
-* [**Day-4 [Pre-layout timing analysis and importance of good clock tree]**]
+  > [Working with a custom cell design (Here it was an inverter)](#Working-with-a-custom-cell-design-(Here-it-was-an-inverter))
+* [Day-4 Pre-layout timing analysis and importance of good clock tree](#Day-4-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
       
-  > [**4. CTS**]
+  > [4. CTS](#4--CTS)
  
-* [**Day-5 [Final steps for RTL2GDS using tritonRoute and openSTA]**]
+* [Day-5 Final steps for RTL2GDS using tritonRoute and openSTA](#Day-5-Final-steps-for-RTL2GDS-using-tritonRoute-and-openSTA)
    
-  > [**5. Routing**]
+  > [5. Routing](#5--Routing)
   
-  > [**6. RC Extraction**]
+  > [6. RC Extraction](#6--RC-Extraction)
   
-  > [**7. Physical Verification**]
+  > [7. Physical Verification](#7--Physical-Verification)
    
-  > [**8. GDSII**]
+  > [8. GDSII](#8--GDSII)
 -----------------
 
 ## Day-1 [Inception of open-source EDA, OpenLANE and Sky130 PDK]
@@ -115,7 +115,7 @@ run_CVC
 ## Day-2 Good floorplan vs bad floorplan and introduction to library cells
 
 A brief understanding on floorplan stage and the factors involved in it like core utilization, aspect ratio etc., was given. Later, I came across the method of loading the prev run file while preparing the openlane. While performing floorplan, I came across the precedency of various config files. Those files and the order of precedence is shown below.
-### **2.Floorplanning**
+### 2.Floorplanning
 ### Default floorplan config file
 
 ![floorplan tcl](https://user-images.githubusercontent.com/61493308/124504845-e12cf000-dde5-11eb-9cc7-c3478a2cd43a.JPG)
@@ -166,7 +166,7 @@ magic -T /home/thanga/../pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../.
 
 
 
-## **3.Placement**
+## 3.Placement
 
 After performing floorplan, we place the standard cells (which were already present at the bottom left of the design) and observe the DRCs. We do this by giving the command *run_placement* in OpenLANE. Placement in OpenLANE occurs in two stages - Global placement and Detailed placement. In global placement, all cells are placed on the floorplan in a random manner and in detailed placement, the cells positions are legalized. Legalization in the sense, it makes sure that cells are not overlapping. In OpenLANE, placement happens by having a goal (for congestion driven) to reduce the HPWL (Half Parameter Wire Length), hence taking many iterations. We invoke the **Magic** tool to view the layout of the design after placement of std cells. 
 
